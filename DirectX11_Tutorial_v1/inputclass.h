@@ -15,14 +15,14 @@ public:
     InputClass();
     InputClass(const InputClass&);
     ~InputClass();
+    
 
+    void Initialize();
 
-    void INitialize();
+    void KeyDown(unsigned int input);
+    void KeyUp(unsigned int input);
 
-    void KeyDown(unsigned int);
-    void KeyUp(unsigned int);
-
-    bool IsKeyDown(unsigned int);
+    bool IsKeyDown(unsigned int input);
 
 
 private:
