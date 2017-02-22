@@ -16,7 +16,8 @@
 #include <windows.h>
 
 // CLASES
-
+#include "graphicsclass.h"
+#include "inputclass.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -48,8 +49,8 @@ private:
     HINSTANCE m_hinstance;
     HWND m_hwnd;
 
-    //InputClass *m_input;
-    //GraphicsClass *m_graphics;
+    InputClass *m_Input;
+    GraphicsClass *m_Graphics;
      
 };
 
