@@ -1,8 +1,36 @@
-#pragma once
+//////////////////////////////////////////////////////////////////////////
+// Filename: inputclass.h
+// Author: Jeremy J. Hartmann
+//////////////////////////////////////////////////////////////////////////
+#ifndef _INPUTCLASS_H_
+#define _INPUTCLASS_H_
+
+
+//////////////////////////////////////////////////////////////////////////
+// CLASS: InputClass
+//////////////////////////////////////////////////////////////////////////
 class InputClass
 {
 public:
     InputClass();
+    InputClass(const InputClass&);
     ~InputClass();
+
+
+    void INitialize();
+
+    void KeyDown(unsigned int);
+    void KeyUp(unsigned int);
+
+    bool IsKeyDown(unsigned int);
+
+
+private:
+    bool m_keys[256];
+    
 };
+
+
+
+#endif // !_INPUTCLASS_H_
 
