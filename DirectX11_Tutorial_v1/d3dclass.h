@@ -23,7 +23,7 @@ public:
     D3DClass(const D3DClass& other);
     ~D3DClass();
 
-    bool Initialize(int, int, bool, HWND, bool, float, float);
+    bool Initialize(int screenWdith, int screenHeight, bool vsync, HWND hwnd, bool fullscreen, float screenDepth, float screenNear);
     void Shutdown();
 
     void BeginScene(float, float, float, float);
@@ -39,7 +39,7 @@ public:
     void GetVideoCardInfo(char*, int&);
 
 private:
-    bool m_sync_enabled;
+    bool m_vsync_enabled;
     int m_videoCardMemory;
     char m_videoChardDescription[128];
     IDXGISwapChain *m_swapChain;
