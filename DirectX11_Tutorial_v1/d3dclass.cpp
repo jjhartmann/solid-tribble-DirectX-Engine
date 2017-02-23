@@ -360,3 +360,55 @@ bool D3DClass::Initialize(int screenWdith, int screenHeight, bool vsync, HWND hw
 
 
 
+//////////////////////////////////////////////////////////////////////////
+// SHUTDOWN
+//////////////////////////////////////////////////////////////////////////
+void D3DClass::Shutdown()
+{
+    // Always force window into windowed mode to avoid exceptions. 
+    if (m_swapChain) {
+        m_swapChain->SetFullscreenState(false, NULL);
+    }
+
+    if (m_rasterState) {
+        m_rasterState->Release();
+        m_rasterState = NULL;
+    }
+
+    if (m_depthStencilView) {
+        m_depthStencilView->Release();
+        m_depthStencilView = NULL;
+    }
+
+    if (m_depthStencilState) {
+        m_depthStencilState->Release();
+        m_depthStencilState = NULL;
+    }
+
+    if (m_depthStencilBuffer) {
+        m_depthStencilBuffer->Release();
+        m_depthStencilBuffer = NULL;
+    }
+
+    if (m_renderTargetView) {
+        m_renderTargetView->Release();
+        m_renderTargetView = NULL;
+    }
+
+    if (m_deviceContext) {
+        m_deviceContext->Release();
+        m_deviceContext = NULL;
+    }
+
+    if (m_device) {
+        m_device->Release();
+        m_device = NULL;
+    }
+
+    if (m_swapChain) {
+        m_swapChain->Release();
+        m_swapChain = NULL;
+    }
+
+}
+
