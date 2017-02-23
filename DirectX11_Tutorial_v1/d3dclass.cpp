@@ -412,3 +412,88 @@ void D3DClass::Shutdown()
 
 }
 
+
+//////////////////////////////////////////////////////////////////////////
+// BEGIN SCENE 
+// - Called beginning of each frame. Initialize buffers.
+//////////////////////////////////////////////////////////////////////////
+void D3DClass::BeginScene(float red, float green, float blue, float alpha)
+{
+    float color[4];
+
+    // Setup color to clear the buffer
+    color[0] = red;
+    color[1] = green;
+    color[2] = blue;
+    color[3] = alpha;
+
+    // Clear back buffer
+    m_deviceContext->ClearRenderTargetView(m_renderTargetView, color);
+
+    // Clear depth buffer
+    m_deviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+}
+
+
+//////////////////////////////////////////////////////////////////////////
+// END SCENE
+// - Inform swap chain to display the 3D scene. 
+//////////////////////////////////////////////////////////////////////////
+void D3DClass::EndScene()
+{
+    // Present back buffer to the scene
+    if (m_vsync_enabled) {
+        // Lock refresh rate
+        m_swapChain->Present(1, 0);
+    }
+    else {
+        // As fast as possible
+        m_swapChain->Present(0, 0);
+    }
+}
+
+
+//////////////////////////////////////////////////////////////////////////
+// GET DEVICE
+//////////////////////////////////////////////////////////////////////////
+ID3D11Device* D3DClass::GetDevice()
+{
+    return m_device;
+}
+
+//////////////////////////////////////////////////////////////////////////
+// GET DEVICE CONTEXT
+//////////////////////////////////////////////////////////////////////////
+ID3D11DeviceContext* D3DClass::GetDeviceContext()
+{
+    return m_deviceContext;
+}
+
+
+//////////////////////////////////////////////////////////////////////////
+// GET MATRIX HELPERS
+//////////////////////////////////////////////////////////////////////////
+void D3DClass::GetProjectionMatrix(XMMATRIX &projectionMatrix) 
+{
+    projectionMatrix = m_projectionMatrix;
+}
+
+void D3DClass::GetWorldMatrix(XMMATRIX &worldMatrix)
+{
+    worldMatrix = m_worldMatrix;
+}
+
+void D3DClass::GetOrthoMatrix(XMMATRIX &orthoMatrix)
+{
+    orthoMatrix = m_orthoMatrix;
+}
+
+//////////////////////////////////////////////////////////////////////////
+ // GET VIDEO GRAPHIC DETAILS
+//////////////////////////////////////////////////////////////////////////
+void D3DClass::GetVideoCardInfo(char* cardName, int& memory)
+{
+    strcpy_s(cardName, 128, m_videoChardDescription);
+    memory = m_videoCardMemory;
+}
+
