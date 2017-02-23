@@ -73,7 +73,7 @@ bool GraphicsClass::Frame()
 bool GraphicsClass::Render()
 {
     // Clear the buffers to begin scene
-    m_Direct3D->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+    m_Direct3D->BeginScene(0.0f, 0.9f, 0.9f, 1.0f);
 
     // Presen the rendered scene to the screen
     m_Direct3D->EndScene();
