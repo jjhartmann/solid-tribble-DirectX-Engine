@@ -1,8 +1,20 @@
+/////////////////////////////////////////////////////////////
+// Filename: color.ps.hlsl
+// Type: Pixel Shader
+/////////////////////////////////////////////////////////////
 
-
-
-
-float4 main() : SV_TARGET
+// TYPE DEFINITIONS
+struct PixelInputType
 {
-	return float4(1.0f, 1.0f, 1.0f, 1.0f);
+    float4 position : SV_Position;
+    float color : COLOR;
+};
+
+
+/////////////////////////////////////////////////////////////
+// PIXELSHADER 
+/////////////////////////////////////////////////////////////
+float4 ColorPixelShader(PixelInputType input) : SV_Target
+{
+    return input.color;
 }
