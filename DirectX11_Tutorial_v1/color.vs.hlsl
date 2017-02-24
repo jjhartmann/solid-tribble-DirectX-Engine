@@ -40,7 +40,7 @@ PixelInputType ColorVertexSharder(VertexInputType input) {
     // Calculate the position of the vertex against the world, view, and proejctioon matrixces. 
     output.position = mul(input.position, worldMatrix); // WORLD
     output.position = mul(output.position, viewMatrix); // CAMERA
-    output.position = mul(output.position, projectionMatrix);
+    output.position = mul(output.position, projectionMatrix); // PROJECTION
 
     // Store the input color fo the pixel shader to use
     output.color = input.color;
