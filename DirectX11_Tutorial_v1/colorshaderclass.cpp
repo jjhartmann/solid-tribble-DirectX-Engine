@@ -173,17 +173,60 @@ bool ColorShaderClass::InitializeShader(ID3D11Device *device, HWND hwnd, WCHAR *
 
 void ColorShaderClass::ShutdownShader()
 {
+    // Release resources
+    if (m_matrixBuffer) {
+        m_matrixBuffer->Release();
+        m_matrixBuffer = NULL;
+    }
 
+    if (m_layout) {
+        m_layout->Release();
+        m_layout = NULL;
+    }
+
+    if (m_pixelShader) {
+        m_pixelShader->Release();
+        m_pixelShader = NULL;
+    }
+
+    if (m_vertextShader) {
+        m_vertextShader->Release();
+        m_vertextShader = NULL;
+    }
 }
 
-void ColorShaderClass::OutputShaderErrorMessage(ID3D10Blob *blob, HWND hwnd, WCHAR *str)
+void ColorShaderClass::OutputShaderErrorMessage(ID3D10Blob *errorMessage, HWND hwnd, WCHAR *shaderFilename)
 {
+    char *compileError;
+    unsigned long long bufferSize, i;
+    ofstream fout;
 
+    // Get pointer to error message
+    compileError = (char*)(errorMessage->GetBufferPointer());
+
+    // Get length of message
+    bufferSize = errorMessage->GetBufferSize();
+    fout.open("shader_error.txt");
+
+    // Write out
+    for (i = 0; i < bufferSize; ++i) {
+        fout << compileError[i];
+    }
+
+    // close
+    fout.close();
+
+    // release mesage
+    errorMessage->Release();
+    errorMessage = NULL;
+
+    // Print to pop-up window
+    MessageBox(hwnd, L"Error compiling Shader. Check shader_error.txt for message.", shaderFilename, MB_OK);
 }
 
 bool ColorShaderClass::SetShaderParameters(ID3D11DeviceContext *deviceContext, XMMATRIX world, XMMATRIX view, XMMATRIX projection)
 {
-
+    return false;
 }
 
 void ColorShaderClass::RenderShader(ID3D11DeviceContext *deviceContext, int i)

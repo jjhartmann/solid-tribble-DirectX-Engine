@@ -39,7 +39,7 @@ public:
 private:
     bool InitializeShader(ID3D11Device *device, HWND hwnd, WCHAR *vsFile, WCHAR *psFile);
     void ShutdownShader();
-    void OutputShaderErrorMessage(ID3D10Blob *blob, HWND hwnd, WCHAR *str);
+    void OutputShaderErrorMessage(ID3D10Blob *errorMessage, HWND hwnd, WCHAR *shaderFilename);
 
     bool SetShaderParameters(ID3D11DeviceContext *deviceContext, XMMATRIX world, XMMATRIX view, XMMATRIX projection);
     void RenderShader(ID3D11DeviceContext *deviceContext, int i);
