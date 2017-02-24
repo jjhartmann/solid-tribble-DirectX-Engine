@@ -226,10 +226,52 @@ void ColorShaderClass::OutputShaderErrorMessage(ID3D10Blob *errorMessage, HWND h
 
 bool ColorShaderClass::SetShaderParameters(ID3D11DeviceContext *deviceContext, XMMATRIX world, XMMATRIX view, XMMATRIX projection)
 {
-    return false;
+    HRESULT result;
+    D3D11_MAPPED_SUBRESOURCE mappedResource;
+    MatrixBufferType *dataPtr;
+    unsigned int bufferNumber;
+
+    // Transpose matrices to perpare them for the shader (Required for DirectX 11)
+    world = XMMatrixTranspose(world);
+    view = XMMatrixTranspose(view);
+    projection = XMMatrixTranspose(projection);
+
+
+    // Lock constant buffer so it can be written to
+    result = deviceContext->Map(m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+    if (FAILED(result)) {
+        return false;
+    }
+
+    // Get pointer to data in constant buffer
+    dataPtr = (MatrixBufferType*)mappedResource.pData;
+
+    // Copy matrices into the constant buffer
+    dataPtr->world = world;
+    dataPtr->view = view;
+    dataPtr->projection = projection;
+
+    // UNLOCK Constant buffer
+    deviceContext->Unmap(m_matrixBuffer, 0);
+
+    // Set position of constant buffer in vertex shader
+    bufferNumber = 0;
+
+    //Set constant buffer invetex shader with updated values
+    deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
+
+    return true;
 }
 
 void ColorShaderClass::RenderShader(ID3D11DeviceContext *deviceContext, int i)
 {
+    // Set the vertex input layout
+    deviceContext->IASetInputLayout(m_layout);
 
+    // Set vertex and pixel shader that will be used to render triangle
+    deviceContext->VSSetShader(m_vertextShader, NULL, 0);
+    deviceContext->PSSetShader(m_pixelShader, NULL, 0);
+
+    // Render triangle
+    deviceContext->DrawIndexed(i, 0, 0);
 }
