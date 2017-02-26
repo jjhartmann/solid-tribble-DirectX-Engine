@@ -41,6 +41,22 @@ void CameraClass::SetRotation(float x, float y, float z)
     m_rotationZ = z;
 }
 
+
+void CameraClass::MoveX(float delta)
+{
+    m_positionX += delta;
+}
+
+void CameraClass::MoveY(float delta)
+{
+    m_positionY += delta;
+}
+
+void CameraClass::MoveZ(float delta)
+{
+    m_positionZ += delta;
+}
+
 DirectX::XMFLOAT3 CameraClass::GetPosition()
 {
     return XMFLOAT3(m_positionX, m_positionY, m_positionZ);

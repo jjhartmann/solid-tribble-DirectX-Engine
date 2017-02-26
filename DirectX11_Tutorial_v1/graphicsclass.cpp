@@ -50,7 +50,7 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND in_hwnd)
         return false;
 
     // Set initial position of the camera
-    m_Camera->SetPosition(0.0, 0.0, -5.0);
+    m_Camera->SetPosition(0.0, 0.0, -10.0);
 
     // Create model object
     m_Model = new ModelClass();
@@ -107,6 +107,11 @@ void GraphicsClass::Shutdown()
         delete m_Direct3D;
         m_Direct3D = NULL;
     }
+}
+
+void GraphicsClass::MoveUp(float delta) 
+{
+    m_Camera->MoveZ(delta);
 }
 
 bool GraphicsClass::Frame()

@@ -65,10 +65,10 @@ bool ModelClass::InitializeBuffers(ID3D11Device *device)
     HRESULT result;
 
     // Set number of vertices in vetex array
-    m_vertexCount = 3;
+    m_vertexCount = 4;
 
     // Set number of indices in index array;
-    m_indexCount = 3;
+    m_indexCount = 6;
 
     // Create vertex array. 
     vertices = new VertexType[m_vertexCount];
@@ -80,23 +80,33 @@ bool ModelClass::InitializeBuffers(ID3D11Device *device)
     if (!indices)
         return false;
 
-
+    //////////////////////////////////////////////////////////////////////////
     // Load the vertex array with data. (triangle)
     // NOTE: Order of vertices is very important. 
+    //////////////////////////////////////////////////////////////////////////
     vertices[0].position = XMFLOAT3(-1.0f, -1.0f, 0.0f); // Bottom Left
-    vertices[0].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+    vertices[0].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 
-    vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f); // Top center
+    vertices[1].position = XMFLOAT3(-1.0f, 1.0f, 0.0f); // Top Left
     vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
-    vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f); // Bottom right
-    vertices[2].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+    vertices[2].position = XMFLOAT3(1.0f, 1.0f, 0.0f); // Top right
+    vertices[2].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+
+    vertices[3].position = XMFLOAT3(1.0f, -1.0f, 0.0f); // Bottom right
+    vertices[3].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+
 
     // Load the index array with data
-    indices[0] = 0; // Bottom left
-    indices[1] = 1; // Top Center
-    indices[2] = 2; // Bottom right
+    indices[0] = 0; // T1: Bottom left
+    indices[1] = 1; // T1: Top Left
+    indices[2] = 3; // T1: Top right
+    indices[3] = 3; // T2: Bottom right
+    indices[3] = 1; // T2: Bottom right
+    indices[3] = 2; // T2: Bottom right
 
+
+    //////////////////////////////////////////////////////////////////////////
     // Set up the description of the static vertex buffer
     vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
     vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
@@ -171,5 +181,5 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext *deviceContext)
     deviceContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
     // Set type of primitive that should be rendered form vertex buffer (triangle)
-    deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 }

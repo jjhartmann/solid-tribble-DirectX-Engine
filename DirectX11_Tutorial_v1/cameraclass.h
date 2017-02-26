@@ -26,6 +26,10 @@ public:
     void Render();
     void GetViewMatrix(XMMATRIX& matrix);
 
+    void MoveX(float delta);
+    void MoveY(float delta);
+    void MoveZ(float delta);
+
 private:
     float m_positionX, m_positionY, m_positionZ;
     float m_rotationX, m_rotationY, m_rotationZ;

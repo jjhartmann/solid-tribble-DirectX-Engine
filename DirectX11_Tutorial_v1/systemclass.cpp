@@ -109,6 +109,11 @@ bool SystemClass::Frame()
 {
     bool result = false;
 
+    // Control Camera
+    if (m_Input->IsKeyDown(VK_UP)) {
+        m_Graphics->MoveUp(1.0);
+    }
+
     // Check if user has pressed escape
     if (m_Input->IsKeyDown(VK_ESCAPE)) {
         return false;

@@ -33,6 +33,7 @@ public:
     bool Initialize(int screenWidth, int screenHeight, HWND in_hwnd);
     void Shutdown();
     bool Frame();
+    void MoveUp(float delta);
 
 private:
     bool Render();
