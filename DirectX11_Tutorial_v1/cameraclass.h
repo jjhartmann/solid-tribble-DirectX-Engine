@@ -28,8 +28,10 @@ public:
 
 private:
     float m_positionX, m_positionY, m_positionZ;
-    float m_rotationZ, m_rotationY, m_rotationZ;
+    float m_rotationX, m_rotationY, m_rotationZ;
     XMMATRIX m_viewMatrix;
+
+    float RAD = 0.0174532925f;
 
 };
 
