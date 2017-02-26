@@ -31,7 +31,7 @@ struct PixelInputType
 ///////////////////////////////////////////////////////
 // VERTEXT SHADER
 ///////////////////////////////////////////////////////
-PixelInputType ColorVertexSharder(VertexInputType input) {
+PixelInputType ColorVertexShader(VertexInputType input) {
     PixelInputType output;
     
     // Change the position vector to be 4 Units

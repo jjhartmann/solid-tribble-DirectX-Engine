@@ -64,7 +64,7 @@ void CameraClass::Render()
     up.z = 0.0f;
 
     // Load into XMECTOR 
-    positionVector = XMLoadFloat3(&up);
+    upVector = XMLoadFloat3(&up);
 
     // Setup Position of camera
     position.x = m_positionX;

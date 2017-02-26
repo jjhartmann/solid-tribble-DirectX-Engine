@@ -7,7 +7,7 @@
 struct PixelInputType
 {
     float4 position : SV_Position;
-    float color : COLOR;
+    float4 color : COLOR;
 };
 
 

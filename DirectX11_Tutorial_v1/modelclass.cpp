@@ -143,6 +143,7 @@ bool ModelClass::InitializeBuffers(ID3D11Device *device)
     indices = NULL;
 
 
+    return true;
 }
 
 void ModelClass::ShutdownBuffers()
